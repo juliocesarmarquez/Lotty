@@ -45,3 +45,4 @@ next-env.d.ts
 /contracts/lottery/Cargo.lock
 /contracts/**/test_snapshots/
 *.wasm
+*.md
