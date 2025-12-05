@@ -1,138 +1,66 @@
-# Smart Contracts Soroban
+## Foundry
 
-Este directorio contiene los smart contracts desarrollados en Rust usando el SDK de Soroban para Stellar.
+**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
-## Estructura
+Foundry consists of:
 
-```
-contracts/
-└── lottery/              # Workspace de Rust
-    ├── contracts/        # Contratos individuales
-    │   └── hello-world/  # Contrato de ejemplo (renombrar/reemplazar)
-    └── Cargo.toml        # Workspace configuration
-```
+- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
+- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
+- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
+- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
 
-## Requisitos Previos
+## Documentation
 
-- [Rust](https://www.rust-lang.org/tools/install) instalado
-- [Soroban CLI](https://soroban.stellar.org/docs/getting-started/setup#install-the-stellar-cli) instalado
-- Target wasm32: `rustup target add wasm32-unknown-unknown`
+https://book.getfoundry.sh/
 
-## Comandos Disponibles
+## Usage
 
-### Desde el directorio raíz del proyecto:
+### Build
 
-```bash
-# Compilar todos los contratos
-npm run contract:build
-
-# Ejecutar tests
-npm run contract:test
-
-# Deploy a testnet
-npm run contract:deploy
-
-# Limpiar build artifacts
-npm run contract:clean
+```shell
+$ forge build
 ```
 
-### Desde el directorio del contrato (`contracts/lottery/contracts/hello-world/`):
+### Test
 
-```bash
-# Compilar
-make build
-
-# Ejecutar tests
-cargo test
-
-# Generar bindings TypeScript (opcional)
-soroban contract bindings typescript \
-  --wasm target/wasm32-unknown-unknown/release/hello_world.wasm \
-  --output-dir ../../../../src/contracts/bindings
+```shell
+$ forge test
 ```
 
-## Desarrollo
+### Format
 
-### 1. Compilar el contrato
-
-```bash
-cd contracts/lottery/contracts/hello-world
-make build
+```shell
+$ forge fmt
 ```
 
-Esto generará el archivo WASM en: `target/wasm32-unknown-unknown/release/`
+### Gas Snapshots
 
-### 2. Ejecutar tests
-
-```bash
-cargo test
+```shell
+$ forge snapshot
 ```
 
-### 3. Deploy a Testnet
+### Anvil
 
-```bash
-# Configurar identidad (solo primera vez)
-soroban keys generate alice --network testnet
-
-# Deploy
-soroban contract deploy \
-  --wasm target/wasm32-unknown-unknown/release/hello_world.wasm \
-  --source alice \
-  --network testnet
+```shell
+$ anvil
 ```
 
-Esto te devolverá el Contract ID que deberás agregar a tu `.env.local`:
+### Deploy
 
-```env
-NEXT_PUBLIC_CONTRACT_ID=CXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+```shell
+$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
 ```
 
-### 4. Invocar funciones
+### Cast
 
-```bash
-# Ejemplo: invocar la función hello
-soroban contract invoke \
-  --id <CONTRACT_ID> \
-  --source alice \
-  --network testnet \
-  -- \
-  hello \
-  --to "World"
+```shell
+$ cast <subcommand>
 ```
 
-## Crear un nuevo contrato
+### Help
 
-```bash
-cd contracts/lottery/contracts
-soroban contract init mi-nuevo-contrato
+```shell
+$ forge --help
+$ anvil --help
+$ cast --help
 ```
-
-No olvides agregarlo al workspace en `contracts/lottery/Cargo.toml`:
-
-```toml
-[workspace]
-members = [
-  "contracts/hello-world",
-  "contracts/mi-nuevo-contrato",  # ← agregar aquí
-]
-```
-
-## Optimización para Producción
-
-El perfil de release ya está optimizado en `Cargo.toml` para generar WASM pequeños:
-
-- `opt-level = "z"` - Optimización para tamaño
-- `lto = true` - Link Time Optimization
-- `codegen-units = 1` - Mejor optimización
-
-## Recursos
-
-- [Documentación Soroban](https://soroban.stellar.org/docs)
-- [Ejemplos de Soroban](https://github.com/stellar/soroban-examples)
-- [SDK Reference](https://docs.rs/soroban-sdk/latest/soroban_sdk/)
-- [Stellar Discord](https://discord.gg/stellardev)
-
-## Integración con el Frontend
-
-Los contratos compilados se invocan desde el frontend usando `@stellar/stellar-sdk`.
-Ver ejemplo en: `src/soroban/deposit.ts`

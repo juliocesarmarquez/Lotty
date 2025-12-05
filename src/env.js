@@ -25,7 +25,15 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_CDP_API_KEY: z.string().optional(),
+    NEXT_PUBLIC_ONCHAINKIT_PROJECT_ID: z.string().optional(),
+    NEXT_PUBLIC_PAYMASTER_URL: z.string().url().optional(),
+    NEXT_PUBLIC_NETWORK: z.enum(["mainnet", "sepolia"]).default("sepolia"),
+    NEXT_PUBLIC_LOTTY_CORE: z.string().optional(),
+    NEXT_PUBLIC_LOTTY_VAULT: z.string().optional(),
+    NEXT_PUBLIC_USDC_ADDRESS: z.string().optional(),
+    NEXT_PUBLIC_MOONWELL_MUSDC: z.string().optional(),
+    NEXT_PUBLIC_MOONWELL_COMPTROLLER: z.string().optional(),
   },
 
   /**
@@ -38,6 +46,15 @@ export const env = createEnv({
     AUTH_DISCORD_SECRET: process.env.AUTH_DISCORD_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    NEXT_PUBLIC_CDP_API_KEY: process.env.NEXT_PUBLIC_CDP_API_KEY,
+    NEXT_PUBLIC_ONCHAINKIT_PROJECT_ID: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_ID,
+    NEXT_PUBLIC_PAYMASTER_URL: process.env.NEXT_PUBLIC_PAYMASTER_URL,
+    NEXT_PUBLIC_NETWORK: process.env.NEXT_PUBLIC_NETWORK,
+    NEXT_PUBLIC_LOTTY_CORE: process.env.NEXT_PUBLIC_LOTTY_CORE,
+    NEXT_PUBLIC_LOTTY_VAULT: process.env.NEXT_PUBLIC_LOTTY_VAULT,
+    NEXT_PUBLIC_USDC_ADDRESS: process.env.NEXT_PUBLIC_USDC_ADDRESS,
+    NEXT_PUBLIC_MOONWELL_MUSDC: process.env.NEXT_PUBLIC_MOONWELL_MUSDC,
+    NEXT_PUBLIC_MOONWELL_COMPTROLLER: process.env.NEXT_PUBLIC_MOONWELL_COMPTROLLER,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

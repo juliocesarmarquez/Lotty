@@ -1,11 +1,11 @@
 import "~/styles/globals.css";
 import { type Metadata } from "next";
 import { Bungee, Bungee_Inline } from "next/font/google";
-import { WalletProvider } from "~/providers/WalletProvider";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "Lotty - Stellar",
-  description: "The first platform to save and win on Stellar",
+  title: "Lotty - Base",
+  description: "The first no-loss lottery on Base",
   icons: [{ rel: "icon", url: "/lottyGuy.png" }],
 };
 
@@ -26,9 +26,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${bungee.variable} ${bungeeInline.variable}`}>
-      <WalletProvider>
-        <body>{children}</body>
-      </WalletProvider>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
