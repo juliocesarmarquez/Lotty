@@ -21,7 +21,7 @@ export function Providers({ children }: { children: ReactNode }) {
             appearance: {
               name: "Lotty",
               logo: "/lottyGuy.png",
-              mode: "light",
+              mode: "dark",
               theme: "default",
             },
           }}

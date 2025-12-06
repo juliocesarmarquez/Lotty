@@ -4,8 +4,8 @@ import { Bungee, Bungee_Inline } from "next/font/google";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "Lotty - Base",
-  description: "The first no-loss lottery on Base",
+  title: "Lotty - No-Loss Lottery",
+  description: "Win prizes without risking your principal",
   icons: [{ rel: "icon", url: "/lottyGuy.png" }],
 };
 

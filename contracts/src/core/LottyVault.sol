@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "../adapters/MoonwellAdapter.sol";
+import "./LottyTreasury.sol";
 
 /// @title LottyVault
 /// @notice ERC-4626 vault that deposits to Moonwell for yield generation
@@ -133,9 +134,10 @@ contract LottyVault is ERC4626, Ownable {
         // Withdraw yield from adapter
         adapter.withdraw(grossYield);
 
-        // Send fee to treasury
+        // Send fee to treasury via receiveFees function
         if (protocolFee > 0) {
-            IERC20(asset()).safeTransfer(treasury, protocolFee);
+            IERC20(asset()).approve(treasury, protocolFee);
+            LottyTreasury(treasury).receiveFees(asset(), protocolFee);
         }
 
         // Transfer yield to LottyCore for prize distribution
